@@ -18,7 +18,7 @@
 class FlowImage {
 
 public:
-  
+
   // default constructor
   FlowImage () {
     data_   = 0;

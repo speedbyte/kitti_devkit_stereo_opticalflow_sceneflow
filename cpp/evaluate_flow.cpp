@@ -8,6 +8,19 @@
 
 using namespace std;
 
+float LC[10][5] =
+        {{0,0.0625,49,54,149},
+         {0.0625,0.125,69,117,180},
+         {0.125,0.25,116,173,209},
+         {0.25,0.5,171,217,233},
+         {0.5,1,224,243,248},
+         {1,2,254,224,144},
+         {2,4,253,174,97},
+         {4,8,244,109,67},
+         {8,16,215,48,39},
+         {16,1000000000.0,165,0,38}};
+
+
 vector<float> flowErrorsOutlier (FlowImage &F_gt,FlowImage &F_orig,FlowImage &F_ipol) {
 
   // check file size
@@ -366,31 +379,3 @@ bool eval (string result_sha,Mail* mail) {
   // success
 	return true;
 }
-
-int32_t main (int32_t argc,char *argv[]) {
-
-  // we need 2 or 4 arguments!
-  if (argc!=2 && argc!=4) {
-    cout << "Usage: ./eval_flow result_sha [user_sha email]" << endl;
-    return 1;
-  }
-
-  // read arguments
-  string result_sha = argv[1];
-  
-  // init notification mail
-  Mail *mail;
-  if (argc==4) mail = new Mail(argv[3]);
-  else         mail = new Mail();
-  mail->msg("Thank you for participating in our evaluation!");
-
-  // run evaluation
-  bool success = eval(result_sha,mail);
-  if (argc==4) mail->finalize(success,"flow",result_sha,argv[2]);
-  else         mail->finalize(success,"flow",result_sha);
-
-  // send mail and exit
-  delete mail;
-  return 0;
-}
-
