@@ -112,17 +112,17 @@ public:
   }
 
   // set optical flow u-component at given pixel
-  inline void setFlowU (const int32_t u,const int32_t v,const float val) {
+  virtual inline void setFlowU (const int32_t u,const int32_t v,const float val) {
     data_[3*(v*width_+u)+0] = val;
   }
   
   // set optical flow v-component at given pixel
-  inline void setFlowV (const int32_t u,const int32_t v,const float val) {
+  virtual inline void setFlowV (const int32_t u,const int32_t v,const float val) {
     data_[3*(v*width_+u)+1] = val;
   }
   
   // set optical flow at given pixel to valid / invalid
-  inline void setValid (const int32_t u,const int32_t v,const bool valid) {
+  virtual inline void setValid (const int32_t u,const int32_t v,const bool valid) {
     data_[3*(v*width_+u)+2] = valid ? 1 : 0;
   }
 
@@ -287,7 +287,7 @@ public:
    
 private:
   
-  void readFlowField (const std::string file_name) {
+  virtual void readFlowField (const std::string file_name) {
     png::image< png::rgb_pixel_16 > image(file_name);
     width_  = image.get_width();
     height_ = image.get_height();
@@ -308,7 +308,7 @@ private:
     }
   }
   
-  void writeFlowField (const std::string file_name) {
+  virtual void writeFlowField (const std::string file_name) {
     png::image< png::rgb_pixel_16 > image(width_,height_);
     for (int32_t v=0; v<height_; v++) {
       for (int32_t u=0; u<width_; u++) {
