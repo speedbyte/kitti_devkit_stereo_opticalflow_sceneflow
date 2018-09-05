@@ -137,7 +137,7 @@ public:
   }
 
   // interpolate all missing (=invalid) optical flow vectors
-  void interpolateBackground () { 
+  virtual void interpolateBackground () {
   
     // for each row do
     for (int32_t v=0; v<height_; v++) {
