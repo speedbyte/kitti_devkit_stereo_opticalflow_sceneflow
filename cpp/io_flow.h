@@ -327,21 +327,7 @@ private:
     image.write(file_name);
   }
   
-  inline float hsvToRgb (float h, float s, float v, float &r, float &g, float &b) {
-    float c  = v*s;
-    float h2 = 6.0*h;
-    float x  = c*(1.0-fabs(fmod(h2,2.0)-1.0));
-    if (0<=h2&&h2<1)       { r = c; g = x; b = 0; }
-    else if (1<=h2&&h2<2)  { r = x; g = c; b = 0; }
-    else if (2<=h2&&h2<3)  { r = 0; g = c; b = x; }
-    else if (3<=h2&&h2<4)  { r = 0; g = x; b = c; }
-    else if (4<=h2&&h2<5)  { r = x; g = 0; b = c; }
-    else if (5<=h2&&h2<=6) { r = c; g = 0; b = x; }
-    else if (h2>6) { r = 1; g = 0; b = 0; }
-    else if (h2<0) { r = 0; g = 1; b = 0; }
-  }
-
-  void writeFalseColors (const std::string file_name, const float max_flow) {
+  virtual void writeFalseColors (const std::string file_name, const float max_flow) {
     float n = 8; // multiplier
     png::image< png::rgb_pixel > image(width_,height_);
     for (int32_t v=0; v<height_; v++) {
@@ -360,6 +346,22 @@ private:
     }
     image.write(file_name);
   }
+
+protected:
+    inline float hsvToRgb (float h, float s, float v, float &r, float &g, float &b) {
+        float c  = v*s;
+        float h2 = 6.0*h;
+        float x  = c*(1.0-fabs(fmod(h2,2.0)-1.0));
+        if (0<=h2&&h2<1)       { r = c; g = x; b = 0; }
+        else if (1<=h2&&h2<2)  { r = x; g = c; b = 0; }
+        else if (2<=h2&&h2<3)  { r = 0; g = c; b = x; }
+        else if (3<=h2&&h2<4)  { r = 0; g = x; b = c; }
+        else if (4<=h2&&h2<5)  { r = x; g = 0; b = c; }
+        else if (5<=h2&&h2<=6) { r = c; g = 0; b = x; }
+        else if (h2>6) { r = 1; g = 0; b = 0; }
+        else if (h2<0) { r = 0; g = 1; b = 0; }
+    }
+
 
 public:
   
